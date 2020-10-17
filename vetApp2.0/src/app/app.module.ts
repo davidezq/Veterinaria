@@ -14,6 +14,9 @@ import { HeaderComponent } from './shared/header/header.component';
 import { ProgressComponent } from './pages/progress/progress.component';
 import { Grafica1Component } from './pages/grafica1/grafica1.component';
 import { PagesComponent } from './pages/pages.component';
+import { MascotaComponent } from './pages/mascota/mascota.component';
+import { CitasComponent } from './pages/citas/citas.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 
 @NgModule({
@@ -29,6 +32,9 @@ import { PagesComponent } from './pages/pages.component';
     ProgressComponent,
     Grafica1Component,
     PagesComponent,
+    MascotaComponent,
+    CitasComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,

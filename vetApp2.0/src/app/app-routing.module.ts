@@ -8,19 +8,25 @@ import { ProgressComponent } from './pages/progress/progress.component';
 import { Grafica1Component } from './pages/grafica1/grafica1.component';
 import { NopagefoundComponent } from './pages/nopagefound/nopagefound.component';
 import { PagesComponent } from './pages/pages.component';
+import { MascotaComponent } from './pages/mascota/mascota.component';
+import { CitasComponent } from './pages/citas/citas.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 const routes: Routes = [
   { 
-    path: 'vet', 
+    path: '', 
     component: PagesComponent,
     children: [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'progress', component: ProgressComponent },
       { path: 'grafica1', component: Grafica1Component },
-      { path: '', redirectTo: 'vet/dashboard', pathMatch: 'full' },
+      { path: 'mascota', component: MascotaComponent },
+      { path: 'citas', component: CitasComponent},
+      { path: 'profile', component: ProfileComponent},
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ]
   },
-  //{ path: 'inicio', component: RegisterComponent },
+  //{ path: '', component: InicioComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
 
