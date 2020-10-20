@@ -11,10 +11,11 @@ import { PagesComponent } from './pages/pages.component';
 import { MascotaComponent } from './pages/mascota/mascota.component';
 import { CitasComponent } from './pages/citas/citas.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { LandingpageComponent } from './inicio/landingpage/landingpage.component';
 
 const routes: Routes = [
   { 
-    path: '', 
+    path: 'vetapp', 
     component: PagesComponent,
     children: [
       { path: 'dashboard', component: DashboardComponent },
@@ -26,7 +27,7 @@ const routes: Routes = [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ]
   },
-  //{ path: '', component: InicioComponent },
+  { path: '', component: LandingpageComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
 
@@ -38,7 +39,7 @@ const routes: Routes = [
 @NgModule({
   declarations: [],
   imports: [
-    RouterModule.forRoot( routes )
+    RouterModule.forRoot(routes, { useHash: true })
   ],
   exports: [ RouterModule ]
 })

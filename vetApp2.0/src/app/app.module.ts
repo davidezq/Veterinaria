@@ -31,6 +31,7 @@ import { from } from 'rxjs';
 import {MascotaService} from './services/mascota.service';
 
 import {CitasService} from './services/citas.service';
+import { LandingpageComponent } from './inicio/landingpage/landingpage.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import {CitasService} from './services/citas.service';
     MascotaComponent,
     CitasComponent,
     ProfileComponent,
+    LandingpageComponent,
   ],
   providers: [MascotaService, CitasService],
   imports: [
