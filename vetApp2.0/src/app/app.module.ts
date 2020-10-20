@@ -1,7 +1,16 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import {FormsModule} from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
+
+import { AngularFireModule } from "@angular/fire";
+import { AngularFireAuthModule } from "@angular/fire/auth";
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { environment } from '../environments/environment';
+
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './auth/login/login.component';
@@ -18,6 +27,10 @@ import { MascotaComponent } from './pages/mascota/mascota.component';
 import { CitasComponent } from './pages/citas/citas.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 
+import { from } from 'rxjs';
+import {MascotaService} from './services/mascota.service';
+
+import {CitasService} from './services/citas.service';
 
 @NgModule({
   declarations: [
@@ -36,9 +49,13 @@ import { ProfileComponent } from './pages/profile/profile.component';
     CitasComponent,
     ProfileComponent,
   ],
+  providers: [MascotaService, CitasService],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule,
+    FormsModule,
   ],
   bootstrap: [AppComponent]
 })
