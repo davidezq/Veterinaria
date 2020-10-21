@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { delay, map } from 'rxjs/operators';
 
 import { MascotaModel } from '../models/mascota.model';
+import { MascotaComponent } from '../pages/mascota/mascota.component';
 
 @Injectable({
   providedIn: 'root'
@@ -47,6 +48,23 @@ export class MascotaService {
     return this.http.get(`${ this.url }/mascotas/${ id }.json`);
 
   }
+
+  //borrar mascota
+
+  borrarMascota( id: string ) {
+
+    return this.http.delete(`${ this.url }/mascotas/${ id }.json`);
+
+  }
+
+  //actualiza la info de la mascota
+
+  actualizarMAscota(mascota:MascotaModel, id: string){
+   
+    return this.http.put(`${ this.url }/mascotas/${ id }.json`,mascota);
+
+  }
+
 
   private crearArreglo( prodObj: object ) {
 

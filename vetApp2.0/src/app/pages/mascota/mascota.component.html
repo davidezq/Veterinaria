@@ -26,10 +26,12 @@
                                                         <div class="col-md-12 m-b-20">
                                                             <input type="date" class="form-control" placeholder="Fecha de Nacimiento" name="Fecha_nacimiento" #Fecha_naciemiento="ngModel" [ngModel]="mascota.Fecha_nacimiento" > </div>
                                                         <div class="col-md-12 m-b-20">
-                                                            <input type="text" class="form-control" placeholder="Propietario" name="Nombre_propietario" #Nombre_propietario="ngModel" [ngModel]="mascota.Nombre_propietario" > </div>
+                                                            <input type="text" class="form-control" placeholder="Propietario" name="Nombre_propietario" #Nombre_propietario="ngModel" [ngModel]="mascota.Nombre_propietario" required > </div>
+                                                            <small *ngIf="Nombre_propietario.invalid && Nombre_mascota.touched" class="form-text text-danger">Nombre del propietario requerido</small>
                                                         <div class="col-md-12 m-b-20">
-                                                            <input type="text" class="form-control" placeholder="Telefono" name="Telefono" #Telefono="ngModel"  [ngModel]="mascota.Telefono"> </div>
-                                                        <div class="col-md-12 m-b-20">
+                                                            <input type="text" class="form-control" placeholder="Telefono" name="Telefono" #Telefono="ngModel"  [ngModel]="mascota.Telefono" required> </div>
+                                                            <small *ngIf="Telefono.invalid && Telefono.touched" class="form-text text-danger">Telefono requerido</small>
+                                                            <div class="col-md-12 m-b-20">
                                                             <input type="text" class="form-control" placeholder="Direccion" name="Direccion" #Direccion="ngModel" [ngModel]="mascota.Direccion" > </div>
                                                         <div class="col-md-12 m-b-20">
                                                             <input type="text" class="form-control" placeholder="Correo Electronico" name="Correo" #Correo="ngModel" [ngModel]="mascota.Correo" > </div>
@@ -81,7 +83,8 @@
                                 <td>{{mascota.Telefono}}</td>
                                 <td>{{mascota.Direccion}}</td>
                                 <td>
-                                    <button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn" data-toggle="tooltip" data-original-title="Delete" ><i class="ti-close" aria-hidden="true"></i></button>
+                                    <button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn" data-toggle="tooltip" data-original-title="update" data-toggle="modal" data-target="#add-contact"  (click)="setdatos(mascota.id)" ><i class="ti-pencil" aria-hidden="true"></i></button>
+                                    <button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn" data-toggle="tooltip" data-original-title="Delete"  (click)="eliminar(mascota.id)"><i class="ti-close" aria-hidden="true"></i></button>
                                 </td>
                             </tr>
                         </tbody>
