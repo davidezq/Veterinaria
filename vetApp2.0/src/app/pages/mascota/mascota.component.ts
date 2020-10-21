@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import {FormsModule} from '@angular/forms';
-import {BrowserModule} from '@angular/platform-browser';
-import { Mascota } from 'src/app/models/mascota';
+import { MascotaModel } from 'src/app/models/mascota.model';
 import {MascotaService} from '../../services/mascota.service';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { Observable } from 'rxjs';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-mascota',
@@ -11,53 +12,72 @@ import {MascotaService} from '../../services/mascota.service';
   styleUrls: ['./mascota.component.css']
 })
 export class MascotaComponent implements OnInit {
-  mascotaList: Mascota[];
-  Nombre_mascota:string;
-  Especie:string;
-  Raza:string;
-  Color:string;
-  Fecha_nacimiento:string;
-  Nombre_propietario:string;
-  Telefono:string;
-  Direccion:string;
-  Correo:string;
-  Password:string;
+  
+  mascota:MascotaModel= new MascotaModel();
+  cargando=false;
+  mascotas:MascotaModel[]=[];
 
-
-  constructor(
-    public mascotaservice: MascotaService
-  ) { }
+  constructor( public mascotaservice: MascotaService,private route: ActivatedRoute,
+    private router: Router  ) { }
 
   ngOnInit(){
-    return this.mascotaservice.getdatos()
-      .snapshotChanges().subscribe(item => {
-        this.mascotaList = [];
-        item.forEach(element => {
-          let x = element.payload.toJSON();
-          x["$key"] = element.key;
-          this.mascotaList.push(x as Mascota);
-        });
-      });
+    this.cargando=true;
+    this.getMascotas();
   }
 
-  onSubmit(){
-    this.mascotaservice.insertdatos(this.Nombre_mascota,this.Raza,this.Color,this.Especie,this.Fecha_nacimiento,this.Nombre_propietario,this.Telefono,this.Direccion,this.Correo,this.Password);
-  this.resetForm();
-  }
-resetForm() {
-  this.Nombre_mascota ='';
-  this.Raza = '';
-  this.Color = '';
-  this.Especie= '';
-  this.Fecha_nacimiento='';
-  this.Nombre_propietario = '';
-  this.Telefono = '';
-  this.Direccion = '';
-  this.Correo = '';
-  this.Password = '';
+  getMascotas(){
+    this.mascotaservice.getmascotas()
+    .subscribe(resp=>{
+      this.mascotas = resp;
+      this.cargando=false;
+
+      //console.log(this.mascotas);
+
+    })
   }
 
-  onDelete($key: string) {
-      this.mascotaservice.deleteMascota($key);    
+agregarMascota(forma: NgForm){
+ 
+  if(forma.invalid){
+    Swal.fire({
+      title:'Fallo 👎 ',
+      text: 'Requiere llenar todos los campos',
+      icon: 'warning'
+    });
+    return;
   }
+  Swal.fire({
+    title: 'Espere',
+    text: 'Guardando información',
+    icon: 'info',
+    allowOutsideClick: false
+  });
+  Swal.showLoading();
+
+  let peticion: Observable<any>;
+
+  if(forma.valid){
+    peticion = this.mascotaservice.nuevaMascota(forma.value);
+  }
+  
+
+  
+  peticion.subscribe( resp => {
+
+    Swal.fire({
+      title:'Exito 👌🏻 ',
+      text: 'Se ingreso correctamente',
+      icon: 'success'
+    });
+   
+
+    console.log('guardado'+ resp);
+    
+
+  });
+
+
+}
+
+
 }

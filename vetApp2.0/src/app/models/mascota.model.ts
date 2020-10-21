@@ -1,5 +1,6 @@
-export class Mascota {
-  $key:string;
+export class MascotaModel {
+  
+  id:string;
   Nombre_mascota:string;
   Especie:string;
   Raza:string;

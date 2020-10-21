@@ -5,8 +5,8 @@ import {FormsModule} from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AngularFireModule } from "@angular/fire";
-import { AngularFireAuthModule } from "@angular/fire/auth";
-import { AngularFirestoreModule } from '@angular/fire/firestore';
+  import { AngularFireAuthModule } from "@angular/fire/auth";
+  import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from '../environments/environment';
 
 import { AngularFireDatabaseModule } from '@angular/fire/database';
@@ -33,6 +33,8 @@ import {MascotaService} from './services/mascota.service';
 import {CitasService} from './services/citas.service';
 import { LandingpageComponent } from './inicio/landingpage/landingpage.component';
 
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,6 +60,8 @@ import { LandingpageComponent } from './inicio/landingpage/landingpage.component
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     FormsModule,
+  
+    HttpClientModule
   ],
   bootstrap: [AppComponent]
 })

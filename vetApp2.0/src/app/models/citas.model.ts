@@ -1,4 +1,4 @@
-export class Citas {
+export class CitasModel {
     $key:string;
     Id: string;
     Dia: string;

@@ -1,34 +1,70 @@
 import { Injectable } from '@angular/core';
-import {AngularFireDatabase, AngularFireList} from '@angular/fire/database';
+import { HttpClient } from '@angular/common/http';
+
+import { delay, map } from 'rxjs/operators';
+
+import { MascotaModel } from '../models/mascota.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MascotaService {
-mascotaList: AngularFireList<any>;
-  constructor(private firebase: AngularFireDatabase) { }
 
-  getdatos() { 
-    return this.mascotaList = this.firebase.list('mascotas');
-   }
-   insertdatos(nombre_mascota:string,raza:string,color:string,especie:string,fecha_nacimiento:String,nombre_propietario:String,telefono:string,direccion:string,correo:String,password:String) {
-    // agregar un dato al final de la lista
-    //this.mascotaList = this.firebase.list('mascotas');
-    this.mascotaList.push({
-      Nombre_mascota: nombre_mascota,
-      Raza: raza,
-      Color: color,
-      Especie:especie,
-      Fecha_nacimiento: fecha_nacimiento,
-      Nombre_propietario: nombre_propietario,
-      Telefono: telefono,
-      Direccion: direccion,
-      Correo: correo,
-      Password:password
-       });
-      }
+  private url ='https://proyectodps-c9199.firebaseio.com';
 
-      deleteMascota($key: string) {
-        this.mascotaList.remove($key);
-      }
+  constructor(private http: HttpClient) { }
+
+
+
+  //inserta una nueva mascota
+
+  nuevaMascota(mascota:MascotaModel){
+    return this.http.post(`${this.url}/mascotas.json`, mascota)
+    .pipe(
+      map((resp:any)=>{
+        mascota.id = resp.name;
+        console.log(mascota);
+        
+        return mascota;
+        
+
+      })
+    )
+  }
+
+  getmascotas(){
+    return this.http.get(`${ this.url }/mascotas.json`)
+    .pipe(
+      map( this.crearArreglo ),
+      delay(0)
+    );
+  }
+
+
+  //obtiene una sola mascota
+  getMascota( id: string ) {
+
+    return this.http.get(`${ this.url }/mascotas/${ id }.json`);
+
+  }
+
+  private crearArreglo( prodObj: object ) {
+
+    const mascotas:MascotaModel[] = [];
+
+    Object.keys( prodObj ).forEach( key => {
+
+      const prod: MascotaModel = prodObj[key];
+      
+      prod.id = key;
+
+      mascotas.push( prod );
+    });
+
+
+    return mascotas;
+
+  }
+
+  
 }
