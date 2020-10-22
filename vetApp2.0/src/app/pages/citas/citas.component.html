@@ -5,63 +5,119 @@
                 <h4 class="card-title">Lista de Citas</h4>
                 <h6 class="card-subtitle"></h6>
                 <div class="table-responsive">
-                    <div id="add-contact" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                     <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                                <h4 class="modal-title" id="myModalLabel">Agregar Nueva Cita</h4> </div>
-                                            <div class="modal-body"> 
-                                                <form class="form-horizontal form-material">
-                                                    <div class="form-group">
-                                                        <div class="col-md-12 m-b-20">
-                                                            <input type="number" class="form-control" placeholder="No" name="Id" > </div>
-                                                        <div class="col-md-12 m-b-20">
-                                                            <input type="date" class="form-control" placeholder="Dia de cita" name="Dia" > </div>
-                                                        <div class="col-md-12 m-b-20">
-                                                            <input type="time" class="form-control" placeholder="Hora de cita" name="Hora" > </div>     
-                                                        <div class="col-md-12 m-b-20">
-                                                             <input type="text" class="form-control" placeholder="Mascota" name="Mascota"> </div> 
-                                                    </div>              
-                                                </form>
+                    <div id="add-contact" class="modal fade in" tabindex="-1" role="dialog"
+                        aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"
+                                        aria-hidden="true">×</button>
+                                    <h4 class="modal-title" id="myModalLabel">Agregar Nueva Cita</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form autocomplete="off" class="form-horizontal form-material"
+                                        (ngSubmit)="agregarCita(forma)" #forma="ngForm">
+                                        <div class="form-group">
+
+                                            <div class="col-md-12 m-b-20">
+                                                <input type="date" class="form-control" placeholder="Dia de cita"
+                                                    name="Dia" #Dia="ngModel" [ngModel]="cita.Dia" required>
                                             </div>
+
+                                            <div class="col-md-12 m-b-20">
+                                                <input type="time" class="form-control" placeholder="Hora de cita"
+                                                    name="Hora" #Hora="ngModel" [ngModel]="cita.Hora" required>
+                                            </div>
+                                            <!-- <div class="col-md-12 m-b-20">
+                                                             <input type="text"
+                                                                     class="form-control"
+                                                                    placeholder="Mascota"
+                                                                    name="Mascota"
+                                                                    #Mascota="ngModel"
+                                                                   [ngModel]="cita.Mascota"
+                                                                    required > </div>  -->
+
+                                            <div class="col-md-12 m-b-20">
+                                                <input (ngModelChange)="setdatos($event)" class="form-control" placeholder="Mascota" name="Mascota"
+                                                    #Mascota="ngModel" [ngModel]="cita.Mascota" required list="Mascota2"
+                                                    id="Mascota">
+                                                <datalist id="Mascota2">
+                                                    <option *ngFor="let item of mascotas; let i=index"
+                                                        value="{{item.Nombre_mascota}}">
+                                                        
+                                                        <label>{{item.Nombre_propietario}}</label>
+                                                    </option>
+                                                </datalist> </div>
+
+
+                                            <div class="col-md-12 m-b-20">
+                                                <input type="text" class="form-control" placeholder="Propietario"
+                                                    name="Propietario" #Propietario="ngModel" [ngModel]="cita.Propietario"
+                                                    required  >
+
+                                            </div>
+
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-info waves-effect" data-dismiss="modal" >Reservar Cita</button>
-                                                <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
+                                                <button type="submit" class="btn btn-info waves-effect">Reservar
+                                                    Cita</button>
+                                                <button type="button" class="btn btn-default waves-effect"
+                                                    data-dismiss="modal">Cancel</button>
                                             </div>
                                         </div>
-                                        <!-- /.modal-content -->
-                                    </div>
-                                    <!-- /.modal-dialog -->
-                                </div><table id="demo-foo-addrow" class="table m-t-30 table-hover contact-list footable-loaded footable" data-page-size="10">
+
+                                    </form>
+                                </div>
+
+                            </div>
+                            <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                    </div>
+                    <table id="demo-foo-addrow" class="table m-t-30 table-hover contact-list footable-loaded footable"
+                        data-page-size="10">
                         <thead>
                             <tr>
-                                <th class="footable-sortable">No<span class="footable-sort-indicator"></span></th>
-                                <th class="footable-sortable">Dia de Cita<span class="footable-sort-indicator"></span></th>
-                                <th class="footable-sortable">Hora de Cita<span class="footable-sort-indicator"></span></th>
+                                <th class="footable-sortable">Dia de Cita<span class="footable-sort-indicator"></span>
+                                </th>
+                                <th class="footable-sortable">Hora de Cita<span class="footable-sort-indicator"></span>
+                                </th>
                                 <th class="footable-sortable">Mascota<span class="footable-sort-indicator"></span></th>
+                                <th class="footable-sortable">Propietario<span class="footable-sort-indicator"></span>
+                                </th>
                                 <th class="footable-sortable">Action<span class="footable-sort-indicator"></span></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr >
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                            <tr *ngFor="let cita of citas; let i=index">
+                                <td>{{cita.Dia|date:'fullDate'|titlecase}}</td>
+                                <td>{{cita.Hora}}</td>
+                                <td>{{cita.Mascota}}</td>
+                                <td>{{cita.Propietario}}</td>
                                 <!--ACCIONES-->
-                                <td>                                   
-                                    <button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn" data-toggle="tooltip" data-original-title="update" ><i class="ti-pencil" aria-hidden="true"></i></button>
-                                    <button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn" data-toggle="tooltip" data-original-title="Delete" ><i class="ti-close" aria-hidden="true"></i></button>
+
+
+                                <td>
+                                    <button type="button"
+                                        class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn"
+                                        data-toggle="tooltip"  data-target="#add-contact"  data-toggle="modal" data-original-title="update" (click)="setdatosC(cita.Id)" ><i class="ti-pencil"
+                                            aria-hidden="true"></i></button>
+
+
+                                    <button type="button"
+                                        class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn"
+                                        data-toggle="tooltip" (click)="eliminar(cita.Id)" data-original-title="Delete"><i class="ti-close"
+                                            aria-hidden="true"></i></button>
                                 </td>
+
                             </tr>
                         </tbody>
                         <tfoot>
                             <tr>
                                 <td colspan="2">
-                                    <button type="button" class="btn btn-info btn-rounded" data-toggle="modal" data-target="#add-contact">Agregar Nueva Cita</button>
+                                    <button type="button" class="btn btn-info btn-rounded" data-toggle="modal"
+                                        data-target="#add-contact">Agregar Nueva Cita</button>
                                 </td>
-                                
+
                                 <!-- <td colspan="7">
                                     <div class="text-right">
                                         <ul class="pagination"> <li class="footable-page-arrow disabled"><a data-page="first" href="#first">«</a></li><li class="footable-page-arrow disabled"><a data-page="prev" href="#prev">‹</a></li><li class="footable-page active"><a data-page="0" href="#">1</a></li><li class="footable-page"><a data-page="1" href="#">2</a></li><li class="footable-page-arrow"><a data-page="next" href="#next">›</a></li><li class="footable-page-arrow"><a data-page="last" href="#last">»</a></li></ul>
@@ -74,12 +130,12 @@
             </div>
         </div>
         <!-- Column -->
-     
-        <!-- Column -->
 
         <!-- Column -->
 
         <!-- Column -->
-        
+
+        <!-- Column -->
+
     </div>
 </div>
