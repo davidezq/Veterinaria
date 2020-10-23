@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {LOCALE_ID, NgModule } from '@angular/core';
 import {FormsModule} from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -27,6 +27,10 @@ import { MascotaComponent } from './pages/mascota/mascota.component';
 import { CitasComponent } from './pages/citas/citas.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 
+import localeEsAs from '@angular/common/locales/es-AR'
+import { registerLocaleData } from '@angular/common';
+registerLocaleData(localeEsAs);
+
 import { from } from 'rxjs';
 import {MascotaService} from './services/mascota.service';
 
@@ -53,7 +57,7 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
     ProfileComponent,
     LandingpageComponent,
   ],
-  providers: [MascotaService, CitasService],
+  providers: [MascotaService, CitasService, { provide: LOCALE_ID, useValue: 'es-Ar' }  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
