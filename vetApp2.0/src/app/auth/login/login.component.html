@@ -4,22 +4,36 @@
 <section id="wrapper" class="login-register login-sidebar" style="background-image:url(../assets/images/background/login-register.jpg);">
     <div class="login-box card">
         <div class="card-body">
-            <form class="form-horizontal form-material" id="loginform" action="index.html">
+            <form class="form-horizontal form-material" (ngSubmit)="login( f )" #f="ngForm">
                 <a href="javascript:void(0)" class="text-center db"><img src="../assets/images/logo-icon.png" alt="Home" /><br/><img src="../assets/images/logo-text.png" alt="Home" /></a>
                 <div class="form-group m-t-40">
                     <div class="col-xs-12">
-                        <input class="form-control" type="text" required="" placeholder="Username">
+                        <input class="form-control" 
+                        type="text" 
+                        name="email" 
+                        [(ngModel)]="usuario.email"
+                        required
+                        email
+                        placeholder="Email">
+                        <span *ngIf="f.submitted && f.controls['email'].errors"
+                          class="text-danger animated fadeIn">El correo es obligatorio</span>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-xs-12">
-                        <input class="form-control" type="password" required="" placeholder="Password">
+                        <input class="form-control" type="password" 
+                        name="password" 
+                        [(ngModel)]="usuario.password"
+                        required
+                        minlength="6"
+                        placeholder="Password">
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-md-12">
                         <div class="checkbox checkbox-primary pull-left p-t-0">
-                            <input id="checkbox-signup" type="checkbox" class="filled-in chk-col-light-blue">
+                            <input  class="filled-in chk-col-light-blue" [(ngModel)]="recordarme"
+                             id="ckb1" type="checkbox" name="remember-me">
                             <label for="checkbox-signup"> Remember me </label>
                         </div>
                         <a href="javascript:void(0)" id="to-recover" class="text-dark pull-right"><i class="fa fa-lock m-r-5"></i> Forgot pwd?</a> </div>
@@ -29,7 +43,7 @@
                         <button class="btn btn-info btn-lg btn-block text-uppercase btn-rounded" type="submit">Log In</button>
                     </div>
                 </div>
-                <div class="row">
+               <!-- <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12 m-t-10 text-center">
                         <div class="social"><a href="javascript:void(0)" class="btn  btn-facebook" data-toggle="tooltip" title="Login with Facebook"> <i aria-hidden="true" class="fa fa-facebook"></i> </a> <a href="javascript:void(0)" class="btn btn-googleplus" data-toggle="tooltip" title="Login with Google"> <i aria-hidden="true" class="fa fa-google-plus"></i> </a> </div>
                     </div>
@@ -38,7 +52,7 @@
                     <div class="col-sm-12 text-center">
                         Don't have an account? <a href="pages-register2.html" class="text-primary m-l-5"><b>Sign Up</b></a>
                     </div>
-                </div>
+                </div>-->
             </form>
             <form class="form-horizontal" id="recoverform" action="index.html">
                 <div class="form-group ">

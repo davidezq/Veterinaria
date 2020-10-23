@@ -12,11 +12,13 @@ import { MascotaComponent } from './pages/mascota/mascota.component';
 import { CitasComponent } from './pages/citas/citas.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { LandingpageComponent } from './inicio/landingpage/landingpage.component';
+import { AuthGuard } from './guard/auth.guard';
 
 const routes: Routes = [
   { 
     path: 'vetapp', 
     component: PagesComponent,
+    canActivateChild:[AuthGuard],
     children: [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'progress', component: ProgressComponent },
