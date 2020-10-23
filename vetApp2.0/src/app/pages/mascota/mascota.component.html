@@ -54,6 +54,7 @@
                                 <table id="demo-foo-addrow" class="table m-t-30 table-hover contact-list footable-loaded footable" data-page-size="10">
                         <thead>
                             <tr>
+                                <th class="footable-sortable">No<span class="footable-sort-indicator"></span></th>
                                 <th class="footable-sortable">Nombre de mascota<span class="footable-sort-indicator"></span></th>
                                 <th class="footable-sortable">Especie<span class="footable-sort-indicator"></span></th>
                                 <th class="footable-sortable">Raza<span class="footable-sort-indicator"></span></th>
@@ -63,11 +64,15 @@
                                 <th class="footable-sortable">Numero<span class="footable-sort-indicator"></span></th>
                                 <th class="footable-sortable">Direccion<span class="footable-sort-indicator"></span></th>
                                 <th class="footable-sortable">Action<span class="footable-sort-indicator"></span></th>
-                            </tr>
+                                                        </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let mascota of mascotas; let i=index">
                                 <td>
+                                    {{i+1}}
+                                </td>
+                                <td>
+
                                     <ul class="navbar-nav">
                                         <li class="nav-item">
                                           <a class="nav-link" >
@@ -75,6 +80,7 @@
                                      {{mascota.Nombre_mascota}}
                                     </a></li></ul>
                                 </td>
+
                                 <td>{{mascota.Especie}}</td>
                                 <td>{{mascota.Raza}}</td>
                                 <td>{{mascota.Color}}</td>

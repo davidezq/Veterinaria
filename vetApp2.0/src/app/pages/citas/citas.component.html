@@ -76,7 +76,10 @@
                     <table id="demo-foo-addrow" class="table m-t-30 table-hover contact-list footable-loaded footable"
                         data-page-size="10">
                         <thead>
+                            
                             <tr>
+                                <th class="footable-sortable">No<span class="footable-sort-indicator"></span>
+                                </th>
                                 <th class="footable-sortable">Dia de Cita<span class="footable-sort-indicator"></span>
                                 </th>
                                 <th class="footable-sortable">Hora de Cita<span class="footable-sort-indicator"></span>
@@ -89,6 +92,7 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let cita of citas; let i=index">
+                                <td>{{i+1}}</td>
                                 <td>{{cita.Dia|date:'fullDate'|titlecase}}</td>
                                 <td>{{cita.Hora}}</td>
                                 <td>{{cita.Mascota}}</td>

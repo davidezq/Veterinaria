@@ -66,8 +66,9 @@ export class MascotaComponent implements OnInit {
           icon: 'success'
         });
         forma.reset();
+        this.mascota.id='';
         this.getMascotas();
-
+        
 
       });
         
@@ -83,7 +84,7 @@ export class MascotaComponent implements OnInit {
       });
       forma.reset();
       this.getMascotas();
-
+      
 
     });
 

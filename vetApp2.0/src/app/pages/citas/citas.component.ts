@@ -92,6 +92,7 @@ export class CitasComponent implements OnInit {
           icon: 'success'
         });
         forma.reset();
+        this.cita.Id='';
         this.getCitas();
 
       });
@@ -115,25 +116,6 @@ export class CitasComponent implements OnInit {
     }
 
 
-   /* let peticion: Observable<any>;
-
-    if(forma.valid){
-      peticion = this.citaservice.nuevaCita(forma.value);
-    }
-
-    peticion.subscribe( resp => {
-
-      Swal.fire({
-        title:'Exito 👌🏻 ',
-        text: 'Se ingreso correctamente',
-        icon: 'success'
-      });
-     
-  
-      this.getCitas();
-      
-    });
-*/
   }
 
  
