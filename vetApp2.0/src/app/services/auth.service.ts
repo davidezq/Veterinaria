@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { delay, map } from 'rxjs/operators';
 import { UsuarioModel } from '../models/usuario.model';
 import { AngularFireAuth } from "@angular/fire/auth";
 
@@ -14,11 +14,11 @@ export class AuthService {
 
   private url = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty';
   private apikey = 'AIzaSyC1Dyo0xN25vOte-GAg-lG5FQXkYaZlraI';
+  private bd ='https://proyectodps-c9199.firebaseio.com';
 
   constructor(private http: HttpClient,public afAuth: AngularFireAuth) { 
     this.leerToken();
 
-    
     
   }
 
@@ -48,14 +48,12 @@ export class AuthService {
       returnSecureToken: true
     };
 
-    
-    
-
     return this.http.post(
       `${ this.url }/verifyPassword?key=${ this.apikey }`,
       authData
     ).pipe(
       map( resp => {
+ 
         this.guardarToken( resp['idToken'] );
         return resp;
       })
@@ -64,6 +62,7 @@ export class AuthService {
   }
   logout() {
     localStorage.removeItem('token');
+    localStorage.removeItem('correo');
   }
 
   
@@ -111,6 +110,51 @@ export class AuthService {
 
 
   }
+
+  //ingresar usuario a la  base de datos
+  bdUser(user:UsuarioModel,id:any,admin:boolean){
+
+    user.id=id;
+    user.role=admin;
+
+    return this.http.post(`${this.bd}/usuario.json`, user)
+    .pipe(
+      map((resp:any)=>{
+        id.id = resp.localId;
+        return user;
+
+      })
+    )
+  }
+  
+  private crearArreglo( prodObj: object ) {
+
+    const usuario:UsuarioModel[] = [];
+
+    Object.keys( prodObj ).forEach( key => {
+
+      const prod: UsuarioModel = prodObj[key];
+      
+      prod.id = key;
+
+      usuario.push( prod );
+    });
+
+
+    return usuario;
+
+  }
+
+  //trae los usuario de la tabla 
+  getUser(){
+    return this.http.get(`${ this.bd }/usuario.json`)
+    .pipe(
+      map( this.crearArreglo ),
+      delay(0)
+    );
+  }
+
+
 
 
 }

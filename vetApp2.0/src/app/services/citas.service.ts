@@ -21,8 +21,11 @@ export class CitasService {
 
   //inserta una nueva cita
 
-  nuevaCita(cita:CitasModel)
+  nuevaCita(cita:CitasModel,id:any)
   {
+    
+      cita.idMascota=id
+      
     return this.http.post(`${this.url}/citas.json`, cita)
     .pipe(
     map((resp:any)=>{

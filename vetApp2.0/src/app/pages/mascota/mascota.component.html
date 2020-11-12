@@ -72,13 +72,15 @@
                                     {{i+1}}
                                 </td>
                                 <td>
-
+                                
                                     <ul class="navbar-nav">
                                         <li class="nav-item">
-                                          <a class="nav-link" >
-                                     <!--<a  routerLink="profile" ><img src="../assets/images/users/8.jpg" alt="user" width="40" class="img-circle"></a> -->
-                                     {{mascota.Nombre_mascota}}
-                                    </a></li></ul>
+                                            <a  (click)="alPerfil(mascota)" class="nav-link">
+                                               <!-- <a ><img src="../assets/images/users/8.jpg" alt="user" width="40" class="img-circle"></a>-->
+                                                    {{mascota.Nombre_mascota}}
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </td>
 
                                 <td>{{mascota.Especie}}</td>
@@ -95,6 +97,8 @@
                             </tr>
                         </tbody>
                         <tfoot>
+                            <h1 *ngIf="mascotas.length===0" > No Tiene Mascotas Registradas </h1>
+                            
                             <tr>
                                 <td colspan="2">
                                     <button type="button" class="btn btn-info btn-rounded" data-toggle="modal" data-target="#add-contact">Agregar Nueva Mascota</button>

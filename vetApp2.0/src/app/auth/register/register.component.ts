@@ -8,23 +8,24 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: [ './register.component.css' ]
+  styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
 
   usuario: UsuarioModel;
   recordarme = false;
+  infoResp: any = '';
 
-  constructor( private auth: AuthService,
-               private router: Router ) { }
+  constructor(private auth: AuthService,
+    private router: Router) { }
 
   ngOnInit() {
     this.usuario = new UsuarioModel();
   }
 
-  onSubmit( form: NgForm ) {
+  onSubmit(form: NgForm) {
 
-    if ( form.invalid ) { return; }
+    if (form.invalid) { return; }
 
     Swal.fire({
       allowOutsideClick: false,
@@ -33,13 +34,12 @@ export class RegisterComponent implements OnInit {
     });
     Swal.showLoading();
 
-    this.auth.nuevoUsuario( this.usuario )
-      .subscribe( resp => {
-
-        console.log(resp);
+    this.auth.nuevoUsuario(this.usuario)
+      .subscribe(resp => {
+            
+        this.IngresoATablaUser(resp,this.usuario);
         Swal.close();
-
-        if ( this.recordarme ) {
+        if (this.recordarme) {
           localStorage.setItem('email', this.usuario.email);
         }
 
@@ -54,5 +54,18 @@ export class RegisterComponent implements OnInit {
         });
       });
   }
+
+  IngresoATablaUser(res:any,user:any){
+
+    this.auth.bdUser(user,res.localId,true)
+        .subscribe(ressp=>{
+          console.log('ingreso a la tabla');
+          
+        })
+  }
+
+
+
+  
 
 }

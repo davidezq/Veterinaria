@@ -1,6 +1,6 @@
 export class MascotaModel {
   
-  id:string;
+  id?:string;
   Nombre_mascota:string;
   Especie:string;
   Raza:string;

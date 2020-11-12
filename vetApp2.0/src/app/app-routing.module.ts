@@ -20,12 +20,13 @@ const routes: Routes = [
     component: PagesComponent,
     canActivateChild:[AuthGuard],
     children: [
-      { path: 'dashboard', component: DashboardComponent },
+      { path: 'dashboard', component: DashboardComponent, data:{breadcrumb:"Dashboard"} },
       { path: 'progress', component: ProgressComponent },
       { path: 'grafica1', component: Grafica1Component },
-      { path: 'mascota', component: MascotaComponent },
-      { path: 'citas', component: CitasComponent},
-      { path: 'profile', component: ProfileComponent},
+      { path: 'mascota', component: MascotaComponent , data:{breadcrumb:"Mascotas"} },
+      { path: 'profile/:id', component: ProfileComponent , data:{breadcrumb:"Perfil"}},
+      { path: 'citas', component: CitasComponent , data:{breadcrumb:"Citas"}},
+      
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ]
   },

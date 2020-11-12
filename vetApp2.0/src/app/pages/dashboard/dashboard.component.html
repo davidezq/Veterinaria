@@ -1,1 +1,82 @@
-<p>dashboard works!</p>
+<div class="row">
+    <div class="col-lg-1">
+        
+    </div>
+    <div class="col-lg-3">
+        <div class="card bg-success">
+            <div class="card-body">
+                <div class="d-flex no-block">
+                    <div class="m-r-20 align-self-center"><img width="75" height="75" src="../assets/images/icon/paw.png" alt="Income">
+                    </div>
+                    <div class="align-self-center">
+                        <h6 class="text-white m-t-10 m-b-0">Total Mascotas </h6>
+                        <h2 class="m-t-0 text-white">{{countMascotas}}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card bg-info">
+            <div class="card-body">
+                <div class="d-flex no-block">
+                    <div class="m-r-20 align-self-center"><img width="75" height="75" src="../assets/images/icon/cita.png" alt="Income">
+                    </div>
+                    <div class="align-self-center">
+                        <h6 class="text-white m-t-10 m-b-0">Total Citas Restantes </h6>
+                        <h2 class="m-t-0 text-white">{{countCita}}</h2>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div>
+    <div class="col-lg-6">
+        <div class="card">
+            <!-- .left-right-aside-column-->
+            <div class="contact-page-aside">
+                <!-- .left-aside-column-->
+                <div class="left-aside bg-light-part">
+                   
+                </div>
+                <!-- /.left-aside-column-->
+                <div class="right-aside ">
+                    <div class="right-page-header">
+                        <div class="d-flex">
+                            <div class="align-self-center">
+                                <h4 class="card-title m-t-10">Contactos / Empleados </h4></div>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <div id="add-contact" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                        
+                                    </div><table id="demo-foo-addrow" class="table m-t-30 table-hover no-wrap contact-list footable-loaded footable" data-page-size="10">
+                            <thead>
+                                <tr>
+                                    <th class="footable-sortable">No<span class="footable-sort-indicator"></span></th>
+                                    <th class="footable-sortable">Name<span class="footable-sort-indicator"></span></th>
+                                    <th class="footable-sortable">Email<span class="footable-sort-indicator"></span></th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr  *ngFor="let item of vetUser; let i=index" class="footable-even" >
+                                    <td><span class="footable-toggle"></span>{{i+1}}</td>
+                                    <td>
+                                        <a ><img width="40" height="40" src="../assets/images/users/1.png" alt="user" class="img-circle"> {{item.nombre}}</a>
+                                    </td>
+                                    <td>{{item.email}}</td>
+                                    
+                                </tr>
+                            
+                            </tbody>
+                            <tfoot>
+                             
+                            </tfoot>
+                        </table>
+                    </div>
+                    <!-- .left-aside-column-->
+                </div>
+                <!-- /.left-right-aside-column-->
+            </div>
+        </div>
+        
+    </div>
+</div>

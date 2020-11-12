@@ -3,5 +3,6 @@ export class CitasModel {
     Dia: string;
     Hora: string; 
     Mascota: string;
+    idMascota:string;
     Propietario:string;
 }

@@ -24,7 +24,7 @@ export class MascotaService {
     .pipe(
       map((resp:any)=>{
         mascota.id = resp.name;
-        console.log(mascota);
+   
         
         return mascota;
         

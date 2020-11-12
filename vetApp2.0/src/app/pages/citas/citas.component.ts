@@ -37,6 +37,7 @@ export class CitasComponent implements OnInit {
     this.cargando=true;
     this.getCitas();
     this.getMascotas();
+   
     
 
   }
@@ -47,7 +48,6 @@ export class CitasComponent implements OnInit {
     .subscribe(resp=>{
       this.mascotas = resp;
       this.cargando=false;
-      console.log(this.mascotas);
     })
   }
 
@@ -62,6 +62,9 @@ export class CitasComponent implements OnInit {
 
   agregarCita(forma:NgForm)
   {
+
+
+
     if(forma.invalid){
       Swal.fire({
         title:'Fallo 👎 ',
@@ -99,7 +102,7 @@ export class CitasComponent implements OnInit {
     } else {
         
           //---
-          this.citaservice.nuevaCita(forma.value)
+          this.citaservice.nuevaCita(forma.value,this.cita.idMascota)
           .subscribe(resp => {
       
             Swal.fire({
@@ -118,18 +121,17 @@ export class CitasComponent implements OnInit {
 
   }
 
- 
   setdatos(idMascota)
   {
-    console.log(idMascota);
+  
     let mascota = this.mascotas.find(element => element.Nombre_mascota == idMascota);
 
     if(mascota)
     {
      
       this.cita.Propietario = mascota.Nombre_propietario;
+      this.cita.idMascota=mascota.id;
 
-      
     }
 
   }
@@ -145,7 +147,10 @@ export class CitasComponent implements OnInit {
       this.cita.Hora=cita.Hora;
       this.cita.Mascota=cita.Mascota;
       this.cita.Propietario=cita.Propietario;
+      this.cita.idMascota=cita.idMascota;
     }
+   
+    
 
   }
 
@@ -179,6 +184,12 @@ export class CitasComponent implements OnInit {
 
 
 
+  }
+
+
+  aPerfil(data:any){
+    this.router.navigate(['vetapp/profile',data.idMascota]);
+    
   }
 
 

@@ -5,6 +5,8 @@ import { MascotaService } from '../../services/mascota.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Observable } from 'rxjs';
 import Swal from 'sweetalert2'
+import { AuthService } from 'src/app/services/auth.service';
+import { UsuarioModel } from 'src/app/models/usuario.model';
 
 @Component({
   selector: 'app-mascota',
@@ -17,8 +19,10 @@ export class MascotaComponent implements OnInit {
   cargando = false;
   mascotas: MascotaModel[] = [];
 
-  constructor(public mascotaservice: MascotaService, private route: ActivatedRoute,
-    private router: Router) { }
+  constructor(public mascotaservice: MascotaService, 
+    private route: ActivatedRoute,
+    private router: Router,
+    private authServ:AuthService) { }
 
   ngOnInit() {
     this.cargando = true;
@@ -30,7 +34,7 @@ export class MascotaComponent implements OnInit {
       .subscribe(resp => {
         this.mascotas = resp;
         this.cargando = false;
-
+ 
       })
   }
 
@@ -51,10 +55,6 @@ export class MascotaComponent implements OnInit {
       allowOutsideClick: false
     });
     Swal.showLoading();
-
-   
-    
-
     if (this.mascota.id) {
 
        this.mascotaservice.actualizarMAscota(forma.value, this.mascota.id)
@@ -76,6 +76,18 @@ export class MascotaComponent implements OnInit {
     } else {
       this.mascotaservice.nuevaMascota(forma.value)
     .subscribe(resp => {
+     
+      let usuario:UsuarioModel={
+        
+        email: resp.Correo,
+        password:resp.Password,
+        nombre:resp.Nombre_propietario,
+        mascota:resp.id
+        
+        
+      }
+      this.nuevoUsuario(usuario);
+      
 
       Swal.fire({
         title: 'Exito 👌🏻 ',
@@ -85,12 +97,9 @@ export class MascotaComponent implements OnInit {
       forma.reset();
       this.getMascotas();
       
-
     });
 
     }
-
-
   }
 
   setdatos(idmascota) {
@@ -146,5 +155,32 @@ export class MascotaComponent implements OnInit {
 
   }
 
+  alPerfil(mascota:any){
+
+    this.router.navigate(['vetapp/profile',mascota.id]);
+  
+  }
+
+  IngresoATablaUser(res:any,user:any){
+
+    this.authServ.bdUser(user,res.localId,false)
+        .subscribe(ressp=>{
+          console.log('ingreso a la tabla');
+          
+        })
+  }
+
+  nuevoUsuario(usuario:UsuarioModel){
+
+    this.authServ.nuevoUsuario(usuario).subscribe(resp=>{
+
+      this.IngresoATablaUser(resp,usuario);
+    })
+
+
+  }
+
+
+  
 
 }
